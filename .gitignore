@@ -1,0 +1,7 @@
+__pycache__/
+.venv/
+python-to-javascript/
+sample-server.py
+sample.html
+sample.js
+sample.js.map

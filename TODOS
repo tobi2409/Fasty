@@ -1,0 +1,29 @@
+bei IMPORTS in py-Datei unterscheiden zwischen # und #! (bei #! muss das Verzeichnis mitangegeben werden - z.B. python-fastapi, bei # wird direkt in components/uicomponents/html gesucht)
+
+besseren Code für generate_dom_element
+korrektes HTML-Gerüst bauen
+CSS trennen
+Container sollte auch html-Methode bekommen
+maximal 1 Client-Align pro Container zulassen, ansonsten Fehler!
+generate_event_handlers!!!
+dahinter darf nichts stehen, davor nur Leerzeichen oder Tabulatoren (NO_OBJECTS_METHODS)
+Code verbessern
+innerText/innerHTML funktioniert noch nicht
+ElementTree bei HTML ersetzen
+Components von übergeordneter Klasse ableiten
+#TODO: vorerst nur so möglich, da file-Protokol vom Browser nicht unterstützt wird (Python-FastAPI)
+
+ERLEDIGT:
+uicomponents-Dateien für HTML, QT usw. unterteilen
+
+
+
+
+
+#CUSTOM_COMPONENTS_IMPORTS_BEGIN
+#MODE=NEW_APPLICATION
+#components/servercomponents/python-fastapi/fastapi-main.py
+#components/servercomponents/python-fastapi/helloworld.py
+#CUSTOM_COMPONENTS_IMPORTS_END
+
+#MODE=NEW_APPLICATION soll bedeuten, dass diese Imports in einem neuen Programm verwaltet werden
