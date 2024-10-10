@@ -1,14 +1,21 @@
-# Das ist eine spezielle UI-Komponente
-# Die Ausrichtung wird bereits Built-In durchgeführt
-# Somit gibt es kein html()
-# Allerdings sollen hier die Style-Möglichkeiten aufgeführt werden
-
 class Container:
     # statische Methoden zum Generieren des DOMs innerhalb tohtml.py
 
     # NO_OBJECT_METHODS_BEGIN ist wichtig, um nur das Nötigste zu importieren bei JS-Generierung
 
     #NO_OBJECT_METHODS_BEGIN
+    @staticmethod
+    def html():
+        return '<div></div>'
+    
+    @staticmethod
+    def text_to_innertext():
+        return True
+    
+    @staticmethod
+    def text_to_value():
+        return False
+
     @staticmethod
     def style():
         return ''
@@ -31,7 +38,7 @@ class Container:
     @staticmethod
     def event_handlers(xml_event_name, xml_event_handler):
         if xml_event_name == 'onclick':
-            return 'onclick=' + xml_event_handler
+            return {'html_event_name': 'onclick', 'event_handler': xml_event_handler}
         
         return ''
     #NO_OBJECT_METHODS_END

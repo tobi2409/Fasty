@@ -27,8 +27,8 @@
             </container>
 
             <container name="container1_1_6_2" align="top" layout-less="true" height="80" background-color="#93B212">
-                <edit left="20" top="30" width="50" height="20">1</edit>
-                <edit left="10%" top="20" width="50" height="20">2</edit>
+                <edit name="edit1" left="20" top="30" width="50" height="20">1</edit>
+                <edit name="edit2" left="10%" top="20" width="50" height="20">2</edit>
             </container>
 
             <container name="container1_1_6_3" align="client" background-color="#000000">
@@ -42,9 +42,9 @@
             <!-- position und display-Eigenschaft müssen automatisch festgelegt werden -->
             <!-- je nachdem ob Parent Layout-Container oder Layout-Less-Container ist -->
             <!--<edit align="left"></edit>-->
-            <edit align="top" height="20">1</edit>
-            <edit align="right" width="30">2</edit>
-            <button align="bottom" height="50" background-color="#82FA90">3</button>
+            <edit name="edit3" align="top" height="20">1</edit>
+            <edit name="edit4" align="right" width="30">2</edit>
+            <button name="button1" align="bottom" height="50" background-color="#82FA90" onclick="clickTest2('abc')">3</button>
         </container>
     </container>
 

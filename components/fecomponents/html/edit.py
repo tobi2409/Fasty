@@ -1,11 +1,16 @@
 class Edit:
+    #NO_OBJECT_METHODS_BEGIN
     @staticmethod
     def html():
         return '<input type="edit">'
     
     @staticmethod
-    def is_innerhtml_from_xml():
+    def text_to_innertext():
         return False
+    
+    @staticmethod
+    def text_to_value():
+        return True
 
     @staticmethod
     def style():
@@ -25,9 +30,10 @@ class Edit:
             return ''
         
         return ''
+    #NO_OBJECT_METHODS_END
     
-    #TODO: Compiler zu QT, Android, iOS, (vlt. auch Win32, ncurses)
-    #(in gesonderte Klasse auslagern)
-    #@staticmethod
-    #def qt():
-    #    return 'self.textedit = QTextEdit()'
+    def __init__(self, name):
+        self._name = name
+    
+    def setText(self, text):
+        document.getElementById(self._name).value = text

@@ -1,15 +1,21 @@
 import sys
 sys.path.append('components/fecomponents/html')
 
+import os
+
 import components.fecomponents.html as fecomponents
 
 from lxml import etree
+
+import re
 
 parser = etree.XMLParser(remove_comments=True)
 loaded_tree = etree.parse('sample.xml', parser)
 
 root = etree.Element('root')
 root.append(loaded_tree.getroot())
+
+written_css = open('sample.css', 'w')
 
 def count_layout_container_childs_by_align(xml_part):
     counted_childs_by_align = {'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'client': 0, 'none': 0}
@@ -30,7 +36,7 @@ def generate_layout_container_grid_template_columns_style_assignment(counted_lay
     for c in range(0, counted_layout_container_childs_by_align['left']):
         result = result + ' auto '
 
-    # wenn es kein Client-Align gibt, wird hier eben Platz freigelassen
+    # falls es kein Client-Align gibt, wird hier eben Platz freigelassen
     result = result + ' 1fr '
 
     for c in range(0, counted_layout_container_childs_by_align['right']):
@@ -70,6 +76,8 @@ def generate_layout_container_child_based_style_assignments(xml_part, column_ind
 def generate_style_assignments(xml_part, column_index):
     style = ''
 
+    # layout-less-container für Platzierung von DOM-Elementen ohne Align
+
     if (xml_part.tag == 'container') and ('layout-less' not in xml_part.attrib or xml_part.attrib['layout-less'].lower() == 'false'):
         style = style + generate_layout_container_based_style_assignments(xml_part)
     # relative, damit die Position der Child-Elemente vom Layout-Less-Container
@@ -96,13 +104,21 @@ def generate_style_assignments(xml_part, column_index):
 
     return style
 
+def generate_css_section(xml_part, column_index):
+    written_css.write('#' + xml_part.attrib['name'] + ' {\n')
+    written_css.write(generate_style_assignments(xml_part, column_index) + '\n')
+    written_css.write('}\n')
+
 def generate_event_handlers(xml_part):
     fe_component_clazz = fecomponents.get(xml_part.tag)
 
-    events = ''
+    events = {}
 
-    for event_name in xml_part.attrib:
-        events = events + fe_component_clazz.event_handlers(event_name, xml_part.attrib[event_name])
+    for a in xml_part.attrib:
+        if re.search('^on', a): # Events beginnen immer mit on
+            event_name = a
+            mapped = fe_component_clazz.event_handlers(event_name, xml_part.attrib[event_name])
+            events[mapped['html_event_name']] = mapped['event_handler']
 
     return events
 
@@ -111,32 +127,28 @@ def generate_dom_element(xml_part, column_index):
         xml_part.text = ''
 
     dom_id = ''
-    if 'name' in xml_part.attrib:
-        dom_id = xml_part.attrib['name']
+    if 'name' not in xml_part.attrib:
+        print('Element muss Namen vergeben werden')
+        sys.exit()
 
-    # generate_style_assignments fragt eh ab, ob es ein Container ist
-    # wenn nicht und wir ein layout-less-container haben,
-    # werden auch keine Container-spezifischen Styles gesetzt
+    dom_id = xml_part.attrib['name']
 
-    # layout-less-container für Platzierung von DOM-Elementen ohne Align
-    if xml_part.tag == 'container':
-        if dom_id != '':
-            return etree.fromstring('<div id="' + xml_part.attrib['name'] + '" style="' + generate_style_assignments(xml_part, column_index) + '"' + generate_event_handlers(xml_part) + '>' + xml_part.text + '</div>', etree.HTMLParser()).find('.//body/')
-        return etree.fromstring('<div style="' + generate_style_assignments(xml_part, column_index) + '"' + generate_event_handlers(xml_part) + '>' + xml_part.text + '</div>', etree.HTMLParser()).find('.//body/')
-        #return ET.fromstring('<div style="' + generate_style_assignments(xml_part, column_index) + '">' + xml_part.text + '</div>')
-    
-    # wenn es kein Container (und somit eine dynamische Komponente) ist
+    generate_css_section(xml_part, column_index)
+
     fe_component_clazz = fecomponents.get(xml_part.tag)
     fe_component = etree.fromstring(fe_component_clazz.html(), etree.HTMLParser()).find('.//body/')
-    #if fe_component_clazz.is_innerhtml_from_xml():
-    #    fe_component.text = xml_part.text
 
-    if dom_id != '':
-        fe_component.attrib['id'] = xml_part.attrib['name']
+    if fe_component_clazz.text_to_innertext():
+        fe_component.text = xml_part.text
+    elif fe_component_clazz.text_to_value():
+        fe_component.attrib['value'] = xml_part.text
 
-    fe_component.attrib['style'] = generate_style_assignments(xml_part, column_index)
+    fe_component.attrib['id'] = xml_part.attrib['name']
 
-    #TODO: generate_event_handlers!!!
+    event_handlers = generate_event_handlers(xml_part)
+
+    for html_event_name in event_handlers:
+        fe_component.attrib[html_event_name] = event_handlers[html_event_name]
 
     return fe_component
 
@@ -192,8 +204,6 @@ def generate_dom_elements(xml_part):
     return dom_elements
 
 def generate_javascript():
-    import os
-
     if os.path.exists('sample.py.tmp'):
         os.remove('sample.py.tmp')
 
@@ -205,8 +215,6 @@ def generate_javascript():
 
     if firstLine != '#IMPORTS_BEGIN':
         return
-    
-    import re
 
     for l in f:
         strippedLine = l.rstrip()
@@ -255,19 +263,28 @@ def generate_javascript():
     #subprocess.run(['python-to-javascript/venv/bin/python3', 'python-to-javascript/PythonToJavascript', '--in_file', './sample.py', '--out_dir', '.'])
 
 html_element = etree.Element('html')
+
+head_element = etree.Element('head')
+head_element.append(etree.fromstring('<link rel="stylesheet" href="sample.css">', etree.HTMLParser()).find('.//head/'))
+
 body_element = etree.Element('body')
 
 dom_element_root = generate_dom_elements(root)
 
+#in dom_element_root ist die Wurzel ein spezielles root-Tag und nicht die Wurzel der XML-Datei
+#-> somit wird das erste Element (was dann die Wurzel der XML-Datei ist) genommen
+body_element.append(dom_element_root[0])
+
 generate_javascript()
-dom_element_root.append(etree.fromstring('<script src="sample.js"></script>', etree.HTMLParser()).find('.//head/'))
+body_element.append(etree.fromstring('<script src="sample.js"></script>', etree.HTMLParser()).find('.//head/'))
 
-body_element.append(dom_element_root)
-
+html_element.append(head_element)
 html_element.append(body_element)
 
 etree.indent(html_element)
-html_string = etree.tostring(html_element, encoding='unicode')
+
+#mit method='html' wird korrekter HTML-Code erzeugt
+html_string = etree.tostring(html_element, pretty_print=True, encoding='unicode', method='html')
 
 import os
 if os.path.exists('sample.html'):

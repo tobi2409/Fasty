@@ -1,11 +1,16 @@
 class Button:
+    #NO_OBJECT_METHODS_BEGIN
     @staticmethod
     def html():
         return '<button></button>'
     
     @staticmethod
-    def is_innerhtml_from_xml():
+    def text_to_innertext():
         return True
+    
+    @staticmethod
+    def text_to_value():
+        return False
     
     @staticmethod
     def style():
@@ -25,3 +30,17 @@ class Button:
             return ''
         
         return ''
+    
+    @staticmethod
+    def event_handlers(xml_event_name, xml_event_handler):
+        if xml_event_name == 'onclick':
+            return {'html_event_name': 'onclick', 'event_handler': xml_event_handler}
+        
+        return ''
+    #NO_OBJECT_METHODS_END
+    
+    def __init__(self, name):
+        self._name = name
+    
+    def setText(self, text):
+        document.getElementById(self._name).innerText = text
