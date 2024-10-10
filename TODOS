@@ -12,6 +12,7 @@ innerText/innerHTML funktioniert noch nicht
 ElementTree bei HTML ersetzen
 Components von übergeordneter Klasse ableiten
 #TODO: vorerst nur so möglich, da file-Protokol vom Browser nicht unterstützt wird (Python-FastAPI)
+Fehler wenn kein Name in XML vorhanden ist
 
 ERLEDIGT:
 uicomponents-Dateien für HTML, QT usw. unterteilen

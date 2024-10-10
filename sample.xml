@@ -1,42 +1,42 @@
 <?xml version="1.0"?>
-<container width="100%" height="100%">
-    <container align="client" background-color="#A8B2C9">
-        <container align="top" background-color="#F198C3">
+<container name="container1" width="100%" height="100%">
+    <container name="container1_1" align="client" background-color="#A8B2C9">
+        <container name="container1_1_1" align="top" background-color="#F198C3">
             Test
         </container>
 
-        <container align="left" background-color="#89A275">
+        <container name="container1_1_2" align="left" background-color="#89A275">
             Test
         </container>
 
-        <container align="top" background-color="#CCAABB">
+        <container name="container1_1_3" align="top" background-color="#CCAABB">
             Test
         </container>
 
-        <container align="right" background-color="#FFFFFF">
+        <container name="container1_1_4" align="right" background-color="#FFFFFF">
             Test
         </container>
 
-        <container align="left" background-color="#29A840">
+        <container name="container1_1_5" align="left" background-color="#29A840">
             Test
         </container>
 
-        <container align="left" width="100" background-color="#0B97AA">
-            <container align="top" height="20" background-color="#FFFFFF">
+        <container name="container1_1_6" align="left" width="100" background-color="#0B97AA">
+            <container name="container1_1_6_1" align="top" height="20" background-color="#FFFFFF">
                 Test
             </container>
 
-            <container align="top" layout-less="true" height="80" background-color="#93B212">
+            <container name="container1_1_6_2" align="top" layout-less="true" height="80" background-color="#93B212">
                 <edit left="20" top="30" width="50" height="20">1</edit>
                 <edit left="10%" top="20" width="50" height="20">2</edit>
             </container>
 
-            <container align="client" background-color="#000000">
+            <container name="container1_1_6_3" align="client" background-color="#000000">
                 Test
             </container>
         </container>
 
-        <container align="client" width="100" background-color="#981112">
+        <container name="container1_1_7" align="client" width="100" background-color="#981112">
             <!-- das funktioniert noch nicht richtig -->
             <!-- edit ist bislang nur als Child für Layout-Less-Container abgestimmt -->
             <!-- position und display-Eigenschaft müssen automatisch festgelegt werden -->
@@ -48,7 +48,7 @@
         </container>
     </container>
 
-    <container align="left" background-color="#531298" onclick="clickTest()">
+    <container name="container1_2" align="left" background-color="#531298" onclick="clickTest()">
         Clickable-Test
     </container>
 
@@ -56,7 +56,7 @@
         Test
     </container>
 
-    <container align="left" background-color="#000000" width="10%">
+    <container name="container1_3" align="left" background-color="#000000" width="10%">
         Test
     </container>
 
@@ -64,7 +64,7 @@
         Test
     </container>
 
-    <container align="bottom" background-color="#C1B1A1">
+    <container name="container1_4" align="bottom" background-color="#C1B1A1">
         Test
     </container>
 </container>
