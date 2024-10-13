@@ -126,16 +126,18 @@ def generate_dom_element(xml_part, column_index):
     if xml_part.text == None:
         xml_part.text = ''
 
-    dom_id = ''
     if 'name' not in xml_part.attrib:
         print('Element muss Namen vergeben werden')
         sys.exit()
 
-    dom_id = xml_part.attrib['name']
+    fe_component_clazz = fecomponents.get(xml_part.tag)
+
+    if fe_component_clazz == None:
+        print('Komponente nicht gefunden')
+        sys.exit()
 
     generate_css_section(xml_part, column_index)
 
-    fe_component_clazz = fecomponents.get(xml_part.tag)
     fe_component = etree.fromstring(fe_component_clazz.html(), etree.HTMLParser()).find('.//body/')
 
     if fe_component_clazz.text_to_innertext():
