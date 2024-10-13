@@ -9,13 +9,16 @@ from lxml import etree
 
 import re
 
+directory_name = sys.argv[1]
+project_name = directory_name[directory_name.rfind('/') + 1:]
+
 parser = etree.XMLParser(remove_comments=True)
-loaded_tree = etree.parse('sample.xml', parser)
+loaded_tree = etree.parse(directory_name + '/' + project_name + '.xml', parser)
 
 root = etree.Element('root')
 root.append(loaded_tree.getroot())
 
-written_css = open('sample.css', 'w')
+written_css = open(directory_name + '/' + project_name + '.css', 'w')
 
 def count_layout_container_childs_by_align(xml_part):
     counted_childs_by_align = {'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'client': 0, 'none': 0}
@@ -206,68 +209,79 @@ def generate_dom_elements(xml_part):
     return dom_elements
 
 def generate_javascript():
-    if os.path.exists('sample.py.tmp'):
-        os.remove('sample.py.tmp')
+    if os.path.exists(directory_name + '/' + project_name + '.py.tmp'):
+        os.remove(directory_name + '/' + project_name + '.py.tmp')
 
-    newFile = open('sample.py.tmp', 'w')
+    newFile = open(directory_name + '/' + project_name + '.py.tmp', 'w')
 
-    f = open('sample.py', 'r')
+    file = open(directory_name + '/' + project_name + '.py', 'r')
 
-    firstLine = f.readline().rstrip()
+    importedFilenames = []
 
-    if firstLine != '#IMPORTS_BEGIN':
-        return
+    def resolve_imports(f):
+        firstLine = f.readline().rstrip()
 
-    for l in f:
-        strippedLine = l.rstrip()
+        if firstLine != '#IMPORTS_BEGIN':
+            newFile.write(firstLine + '\n')
+            return
 
-        if strippedLine == '#IMPORTS_END':
-            break
+        for l in f:
+            strippedLine = l.rstrip()
 
-        componentFile = open('components/fecomponents/html/' + strippedLine[1:] + '.py', 'r')
+            if strippedLine == '#IMPORTS_END':
+                break
 
-        doWrite = True
+            componentFileName = 'components/fecomponents/html/' + strippedLine[1:] + '.py'
 
-        for cl in componentFile:
-            strippedCl = cl.rstrip()
+            if importedFilenames.__contains__(componentFileName):
+                return
 
-            #TODO: dahinter darf nichts stehen, davor nur Leerzeichen oder Tabulatoren
-            if re.search('#NO_OBJECT_METHODS_BEGIN', strippedCl):
-                doWrite = False
+            componentFile = open(componentFileName, 'r')
+            resolve_imports(componentFile)
 
-            if doWrite:
-                newFile.write(strippedCl + '\n')
+            doWrite = True
 
-            if re.search('#NO_OBJECT_METHODS_END', strippedCl):
-                doWrite = True
+            for cl in componentFile:
+                strippedCl = cl.rstrip()
 
-        componentFile.close()
+                #TODO: dahinter darf nichts stehen, davor nur Leerzeichen oder Tabulatoren
+                if re.search('#NO_OBJECT_METHODS_BEGIN', strippedCl):
+                    doWrite = False
 
-    for l in f:
+                if doWrite:
+                    newFile.write(strippedCl + '\n')
+
+                if re.search('#NO_OBJECT_METHODS_END', strippedCl):
+                    doWrite = True
+
+            componentFile.close()
+
+            importedFilenames.append(componentFileName)
+
+    resolve_imports(file)
+
+    for l in file:
         newFile.write(l)
 
-    f.close()
+    file.close()
     newFile.close()
 
-    if os.path.exists('sample.js'):
-        os.remove('sample.js')
+    if os.path.exists(directory_name + '/' + project_name + '.js'):
+        os.remove(directory_name + '/' + project_name + '.js')
 
-    if os.path.exists('sample.js.map'):
-        os.remove('sample.js.map')
+    if os.path.exists(directory_name + '/' + project_name + '.js.map'):
+        os.remove(directory_name + '/' + project_name + '.js.map')
 
     import subprocess
-    subprocess.run(['.venv/bin/pj', 'sample.py.tmp', '--output', 'sample.js'])
+    subprocess.run(['.venv/bin/pj', directory_name + '/' + project_name + '.py.tmp', '--output', directory_name + '/' + project_name + '.js'])
 
-    if os.path.exists('sample.py.tmp'):
-        os.remove('sample.py.tmp')
-
-    #venv/bin/python3 PythonToJavascript --in_file ../sample.py --out_dir ../sample-compile-test/
-    #subprocess.run(['python-to-javascript/venv/bin/python3', 'python-to-javascript/PythonToJavascript', '--in_file', './sample.py', '--out_dir', '.'])
+    if os.path.exists(directory_name + '/' + project_name + '.py.tmp'):
+        os.remove(directory_name + '/' + project_name + '.py.tmp')
 
 html_element = etree.Element('html')
 
 head_element = etree.Element('head')
-head_element.append(etree.fromstring('<link rel="stylesheet" href="sample.css">', etree.HTMLParser()).find('.//head/'))
+head_element.append(etree.fromstring('<link rel="stylesheet" href="' + project_name + '.css">', etree.HTMLParser()).find('.//head/'))
 
 body_element = etree.Element('body')
 
@@ -278,7 +292,7 @@ dom_element_root = generate_dom_elements(root)
 body_element.append(dom_element_root[0])
 
 generate_javascript()
-body_element.append(etree.fromstring('<script src="sample.js"></script>', etree.HTMLParser()).find('.//head/'))
+body_element.append(etree.fromstring('<script src="' + project_name + '.js"></script>', etree.HTMLParser()).find('.//head/'))
 
 html_element.append(head_element)
 html_element.append(body_element)
@@ -289,9 +303,9 @@ etree.indent(html_element)
 html_string = etree.tostring(html_element, pretty_print=True, encoding='unicode', method='html')
 
 import os
-if os.path.exists('sample.html'):
-    os.remove('sample.html')
+if os.path.exists(directory_name + '/' + project_name + '.html'):
+    os.remove(directory_name + '/' + project_name + '.html')
 
-with open("sample.html", "w") as text_file:
+with open(directory_name + '/' + project_name + '.html', 'w') as text_file:
     text_file.write(html_string)
     text_file.close()

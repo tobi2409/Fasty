@@ -1,5 +1,7 @@
 #include <windows.h>
 
+!!DECLARATIONS!!
+
 // Fensterprozedur
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -8,7 +10,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             PostQuitMessage(0);
             return 0;
         case WM_SIZE: {
-            !!!LAYOUT-ADJUSTMENT!!!
+            int width = LOWORD(lParam);
+            int height = HIWORD(lParam);
+
+!!LAYOUT-ADJUSTMENT!!
             return 0;
         }
     }

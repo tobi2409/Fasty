@@ -6,6 +6,10 @@ vorerst nur so möglich, da file-Protokol vom Browser nicht unterstützt wird (P
 Fehler wenn kein Name in XML vorhanden ist
 einzelnes CSS (also für eine ID) als Liste erstellen
 Komponente zur Laufzeit erstellen mit Events
+Möglichkeit, um visuelle Komponenten über XML-Layout anstelle über HTML zu erstellen (siehe tableview)
+Dateien strukturieren
+individuelle Serverkomponenten (PythonFastAPI) für Sample-Projekt erstellen (da diese Komponenten individuell - d.h. direkt an das Serverprogramm angepasst sind, sind Parameter wohl auch nicht notwendig)
+Desktop-Übersetzer (entweder win32, lcl oder qt) implementieren
 
 ERLEDIGT:
 uicomponents-Dateien für HTML, QT usw. unterteilen
