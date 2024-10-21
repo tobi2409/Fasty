@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+
 def get(component):
     if component == 'container':
         import container
@@ -8,3 +12,6 @@ def get(component):
     elif component == 'button':
         import button
         return button.Button
+    elif component == 'tableview':
+        import tableview
+        return tableview.TableView

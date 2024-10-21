@@ -1,12 +1,12 @@
-class Container:
-    # statische Methoden zum Generieren des DOMs innerhalb tohtml.py
-
-    # NO_OBJECT_METHODS_BEGIN ist wichtig, um nur das Nötigste zu importieren bei JS-Generierung
-
+class Button:
     #NO_OBJECT_METHODS_BEGIN
     @staticmethod
+    def is_composed():
+        return False
+
+    @staticmethod
     def html():
-        return '<div></div>'
+        return '<button></button>'
     
     @staticmethod
     def text_to_innertext():
@@ -15,11 +15,11 @@ class Container:
     @staticmethod
     def text_to_value():
         return False
-
+    
     @staticmethod
     def style():
         return ''
-
+    
     @staticmethod
     def custom_style(xml_style_name, xml_style_value):
         if (xml_style_name == 'left') or (xml_style_name == 'top') or (xml_style_name == 'width') or (xml_style_name == 'height'):
@@ -32,7 +32,7 @@ class Container:
             if re.compile(r'#[a-fA-F0-9]{6}$').match(xml_style_value):
                 return 'background-color: ' + xml_style_value + ';'
             return ''
-            
+        
         return ''
     
     @staticmethod
@@ -43,8 +43,6 @@ class Container:
         return ''
     #NO_OBJECT_METHODS_END
     
-    # Objektmethoden für vom Entwickler durchzuführende DOM-Manipulationen
-
     def __init__(self, name):
         self._name = name
     

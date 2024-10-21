@@ -1,0 +1,2 @@
+def tableViewClick():
+    alert('TEST')

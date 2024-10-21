@@ -1,6 +1,10 @@
 class Edit:
     #NO_OBJECT_METHODS_BEGIN
     @staticmethod
+    def is_composed():
+        return False
+
+    @staticmethod
     def html():
         return '<input type="edit">'
     

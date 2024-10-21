@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<container name="container1" width="100%" height="100%">
+    <container name="container1_1" background-color="#758F03" align="left" width="100">
+    </container>
+
+    <container name="container1_2" background-color="#008F03" align="top" height="50">
+    </container>
+
+    <container name="container1_3" background-color="#878F03" align="bottom" height="50">
+    </container>
+
+    <container name="container1_4" background-color="#000000" align="right" width="50">
+    </container>
+
+    <container name="container1_5" background-color="#7199F0" align="client" layout-less="true">
+
+        <container name="tableview-wrapper" left="10" top="10">
+            <tableview name="tableview" col_height="50" width="300" height="100">
+
+                <header>
+                    <column name="header-column1" width="100">Header-Column1</column>
+                    <column name="header-column2" width="100">Header-Column2</column>
+                    <column name="header-column3" width="100">Header-Column3</column>
+                </header>
+
+                <data>
+                    <row name="row1">
+                        <column name="row1-column1">Row1-Column1</column>
+                        <column name="row1-column2">Row1-Column2</column>
+                        <column name="row1-column3">Row1-Column3</column>
+                    </row>
+
+                    <row name="row2">
+                        <column name="row2-column1">Row2-Column1</column>
+                        <column name="row2-column2">Row2-Column2</column>
+                        <column name="row2-column3">Row2-Column3</column>
+                    </row>
+                </data>
+
+            </tableview>
+        </container>
+
+    </container>
+
+</container>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<container name="root" width="100%" height="100%" layout-less="true">
+
+    <container name="test-container1" left="10" top="10" width="200" height="100" background-color="#0000FF">
+    </container>
+
+    <tableview name="tableview" col_height="50" left="10" top="10" width="300" height="100">
+
+        <header>
+            <column name="header-column1" width="100">Header-Column1</column>
+            <column name="header-column2" width="100">Header-Column2</column>
+            <column name="header-column3" width="100">Header-Column3</column>
+        </header>
+
+        <data>
+            <row name="row1">
+                <column name="row1-column1">Row1-Column1</column>
+                <column name="row1-column2">Row1-Column2</column>
+                <column name="row1-column3">Row1-Column3</column>
+            </row>
+
+            <row name="row2">
+                <column name="row2-column1">Row2-Column1</column>
+                <column name="row2-column2">Row2-Column2</column>
+                <column name="row2-column3">Row2-Column3</column>
+            </row>
+        </data>
+
+    </tableview>
+
+    <tableview name="tableview2" col_height="50" left="20" top="10" width="300" height="100">
+
+        <header>
+            <column name="header-column1" width="100">Header-Column1</column>
+            <column name="header-column2" width="100">Header-Column2</column>
+            <column name="header-column3" width="100">Header-Column3</column>
+        </header>
+
+        <data>
+            <row name="row1">
+                <column name="row1-column1">Row1-Column1</column>
+                <column name="row1-column2">Row1-Column2</column>
+                <column name="row1-column3">Row1-Column3</column>
+            </row>
+
+            <row name="row2">
+                <column name="row2-column1">Row2-Column1</column>
+                <column name="row2-column2">Row2-Column2</column>
+                <column name="row2-column3">Row2-Column3</column>
+            </row>
+        </data>
+
+    </tableview>
+
+</container>

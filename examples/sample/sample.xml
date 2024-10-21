@@ -15,7 +15,7 @@
 
     <container name="container1_5" background-color="#7199F0" align="client" layout-less="true">
 
-        <container name="container1_5_1" background-color="#FFFFFF" align="left" width="10%" height="100%">
+        <container name="container1_5_1" background-color="#FFFFFF" width="10%" height="100%">
         </container>
 
         <container name="container1_5_2" background-color="#91FF08" left="10%" top="0" width="90%" height="100%" layout-less="true">

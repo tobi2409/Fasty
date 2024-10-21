@@ -1,8 +1,16 @@
-class Button:
+class Container:
+    # statische Methoden zum Generieren des DOMs innerhalb tohtml.py
+
+    # NO_OBJECT_METHODS_BEGIN ist wichtig, um nur das Nötigste zu importieren bei JS-Generierung
+
     #NO_OBJECT_METHODS_BEGIN
     @staticmethod
+    def is_composed():
+        return False
+
+    @staticmethod
     def html():
-        return '<button></button>'
+        return '<div></div>'
     
     @staticmethod
     def text_to_innertext():
@@ -11,11 +19,11 @@ class Button:
     @staticmethod
     def text_to_value():
         return False
-    
+
     @staticmethod
     def style():
         return ''
-    
+
     @staticmethod
     def custom_style(xml_style_name, xml_style_value):
         if (xml_style_name == 'left') or (xml_style_name == 'top') or (xml_style_name == 'width') or (xml_style_name == 'height'):
@@ -28,7 +36,15 @@ class Button:
             if re.compile(r'#[a-fA-F0-9]{6}$').match(xml_style_value):
                 return 'background-color: ' + xml_style_value + ';'
             return ''
-        
+        elif xml_style_name == 'scrollable-x':
+            if xml_style_value == 'true':
+                return 'overflow-x: auto'
+            return ''
+        elif xml_style_name == 'scrollable-y':
+            if xml_style_value == 'true':
+                return 'overflow-y: auto'
+            return ''
+            
         return ''
     
     @staticmethod
@@ -39,6 +55,8 @@ class Button:
         return ''
     #NO_OBJECT_METHODS_END
     
+    # Objektmethoden für vom Entwickler durchzuführende DOM-Manipulationen
+
     def __init__(self, name):
         self._name = name
     

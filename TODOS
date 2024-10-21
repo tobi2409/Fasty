@@ -1,15 +1,20 @@
+TableView als Komponente
+TableView positioniert sich noch nicht richtig über left, top, weil layout-less vom Parent-Element wird von temporärer Datei ausgelesen und nicht von Hauptdatei
+-> keine Lösung auf Dauer: eine schnelle und einfache Möglichkeit wäre, wenn man einfach die TableView in einen Container einhüllt
+QT
+Serverkomponenten verbessern
+
 maximal 1 Client-Align pro Container zulassen, ansonsten Fehler!
 dahinter darf nichts stehen, davor nur Leerzeichen oder Tabulatoren (NO_OBJECTS_METHODS)
-Code verbessern
 Components von übergeordneter Klasse ableiten
-vorerst nur so möglich, da file-Protokol vom Browser nicht unterstützt wird (Python-FastAPI)
-Fehler wenn kein Name in XML vorhanden ist
-einzelnes CSS (also für eine ID) als Liste erstellen
 Komponente zur Laufzeit erstellen mit Events
 Möglichkeit, um visuelle Komponenten über XML-Layout anstelle über HTML zu erstellen (siehe tableview)
 Dateien strukturieren
 individuelle Serverkomponenten (PythonFastAPI) für Sample-Projekt erstellen (da diese Komponenten individuell - d.h. direkt an das Serverprogramm angepasst sind, sind Parameter wohl auch nicht notwendig)
 Desktop-Übersetzer (entweder win32, lcl oder qt) implementieren
+Fehler sollten noch aufzeigen, an welcher Komponente sie gescheitert sind
+composed-JS-File: sollten Funktionen schonmal importiert worden sein, weil composed-Komponente mehrfach erstellt wurde, sollte nur eine Funktion davon drin sein
+composed-JS-File: Leerzeilen nicht vergessen, sonst steht alles auf einer Zeile und es wird ggf. was kommentiert
 
 ERLEDIGT:
 uicomponents-Dateien für HTML, QT usw. unterteilen
@@ -21,6 +26,12 @@ CSS trennen
 Container sollte auch html-Methode bekommen
 generate_event_handlers!!!
 innerText/innerHTML funktioniert noch nicht
+TableView-Beispiel erstellen
+tohtml() und tolayout()
+Code verbessern
+vorerst nur so möglich, da file-Protokol vom Browser nicht unterstützt wird (Python-FastAPI)
+Fehler wenn kein Name in XML vorhanden ist
+einzelnes CSS (also für eine ID) als Liste erstellen
 
 #CUSTOM_COMPONENTS_IMPORTS_BEGIN
 #MODE=NEW_APPLICATION

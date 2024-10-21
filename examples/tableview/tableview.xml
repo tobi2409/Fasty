@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<container name="tableview" width="400" height="150" background-color="#FFFFFF">
+
+    <container name="header-row" align="top" width="100%" height="50" background-color="#8C8C8C">
+        <container name="header-row-col1" align="left" width="100" height="100%" layout-less="true">
+            <container name="header-row-col1-title" width="100%" height="60%">
+                Column 1
+            </container>
+
+            <edit name="header-row-col1-searchbar" top="60%" width="100%" height="40%">Search ...</edit>
+        </container>
+
+        <container name="header-row-col2" align="left" width="100" height="100%" layout-less="true">
+            <container name="header-row-col2-title" width="100%" height="60%">
+                Column 2
+            </container>
+
+            <edit name="header-row-col2-searchbar" top="60%" width="100%" height="40%">Search ...</edit>
+        </container>
+
+        <container name="header-row-col3" align="left" width="100" height="100%" layout-less="true">
+            <container name="header-row-col3-title" width="100%" height="60%">
+                Column 3
+            </container>
+
+            <edit name="header-row-col3-searchbar" top="60%" width="100%" height="40%">Search ...</edit>
+        </container>
+
+        <container name="header-row-col4" align="left" width="100" height="100%" layout-less="true">
+            <container name="header-row-col4-title" width="100%" height="60%">
+                Column 4
+            </container>
+
+            <edit name="header-row-col4-searchbar" top="60%" width="100%" height="40%">Search ...</edit>
+        </container>
+    </container>
+
+    <container name="tableview-main" align="client" scrollable-y="true">
+        <container name="row1" align="top" width="100%" height="50" background-color="#DCDCDC">
+            <container name="row1-col1" align="left" width="100" height="100%" layout-less="true">
+                Row1-Column1
+            </container>
+
+            <container name="row1-col2" align="left" width="100" height="100%" layout-less="true">
+                Row1-Column2
+            </container>
+
+            <container name="row1-col3" align="left" width="100" height="100%" layout-less="true">
+                Row1-Column3
+            </container>
+
+            <container name="row1-col4" align="left" width="100" height="100%" layout-less="true">
+                Row1-Column4
+            </container>
+        </container>
+
+        <container name="row2" align="top" width="100%" height="50" background-color="#E6E6E6">
+            <container name="row2-col1" align="left" width="100" height="100%" layout-less="true">
+                Row2-Column1
+            </container>
+
+            <container name="row2-col2" align="left" width="100" height="100%" layout-less="true">
+                Row2-Column2
+            </container>
+
+            <container name="row2-col3" align="left" width="100" height="100%" layout-less="true">
+                Row2-Column3
+            </container>
+
+            <container name="row2-col4" align="left" width="100" height="100%" layout-less="true">
+                Row2-Column4
+            </container>
+        </container>
+
+        <container name="row3" align="top" width="100%" height="50" background-color="#E6E6E6">
+            <container name="row3-col1" align="left" width="100" height="100%" layout-less="true">
+                Row3-Column1
+            </container>
+
+            <container name="row3-col2" align="left" width="100" height="100%" layout-less="true">
+                Row3-Column2
+            </container>
+
+            <container name="row3-col3" align="left" width="100" height="100%" layout-less="true">
+                Row3-Column3
+            </container>
+
+            <container name="row3-col4" align="left" width="100" height="100%" layout-less="true">
+                Row3-Column4
+            </container>
+        </container>
+
+    </container>
+
+</container>
