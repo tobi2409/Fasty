@@ -4,7 +4,8 @@
     <container name="container1_1" background-color="#758F03" align="left" width="100">
     </container>
 
-    <container name="container1_2" background-color="#008F03" align="top" height="50">
+    <container name="container1_2" background-color="#008F03" align="top" height="50" layout-less="true">
+        <button name="button1" left="10" top="10" width="100" height="20" onclick="runtimeComponent()">Runtime-Komponente</button>
     </container>
 
     <container name="container1_3" background-color="#878F03" align="bottom" height="50">

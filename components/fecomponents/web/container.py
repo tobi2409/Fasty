@@ -59,6 +59,30 @@ class Container:
 
     def __init__(self, name):
         self._name = name
+
+    def createAtRuntime(self, parent):
+        container = document.createElement('div')
+        container.id = self._name
+        parent.appendChild(container)
     
     def setText(self, text):
         document.getElementById(self._name).innerText = text
+
+    #TODO: left, top, width, height und hinterher auch background-color und scrollable
+    # muss den möglichen Eigenschaftswerten der custom_style-Methode entsprechen
+    def setLeft(self, left):
+        document.getElementById(self._name).style.left = left
+
+    def setTop(self, top):
+        document.getElementById(self._name).style.top = top
+
+    def setWidth(self, width):
+        document.getElementById(self._name).style.width = width
+
+    def setHeight(self, height):
+        document.getElementById(self._name).style.height = height
+
+    def setAlign(self, align):
+        #...
+
+    def setLayoutLess(self, layoutLess):
