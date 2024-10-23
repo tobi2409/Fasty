@@ -59,11 +59,39 @@ class Container:
 
     def __init__(self, name):
         self._name = name
+        self._children = []
+
+    def getName(self):
+        return self._name
 
     def createAtRuntime(self, parent):
         container = document.createElement('div')
         container.id = self._name
-        parent.appendChild(container)
+        document.getElementById(parent.getName()).appendChild(container)
+
+    def addChildren(self, e):
+        self._children.push(e)
+
+    def getChildren(self):
+        return self._children
+
+    def adjustContainer(self):
+        #TODO: Methoden von style.py nutzen
+        def count_layout_container_childs_by_align():
+            counted_childs_by_align = {'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'client': 0, 'none': 0}
+            
+            for child in self._children:
+                #TODO: sollte kein align im Child drin sein
+                if child.
+                    counted_childs_by_align['none'] = counted_childs_by_align['none'] + 1
+                else:
+                    counted_childs_by_align[child.attrib['align']] = counted_childs_by_align[child.attrib['align']] + 1
+
+            #TODO: maximal 1 Client-Align zulassen, ansonsten Fehler!
+
+            return counted_childs_by_align
+
+        console.log(count_layout_container_childs_by_align())
     
     def setText(self, text):
         document.getElementById(self._name).innerText = text
@@ -83,6 +111,6 @@ class Container:
         document.getElementById(self._name).style.height = height
 
     def setAlign(self, align):
-        #...
+        self._align = align
 
-    def setLayoutLess(self, layoutLess):
+    #def setLayoutLess(self, layoutLess):
